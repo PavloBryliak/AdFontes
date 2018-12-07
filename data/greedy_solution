@@ -1,0 +1,31 @@
+from data.ParsedData import Data
+from data.Drone import Drone
+
+from math import inf, sqrt
+
+
+def path_lenght(A, B):
+     return sqrt((A[0] - B[0]) ** 2 + (A[1] - B[1]) ** 2)
+
+
+drone_list = []
+for i in range(30):
+    drone_list.append(Drone().A)
+
+
+def greedy_algorithm(order):
+    warehouses = Data.warehouses
+    #orders = Data.orders
+    best = inf
+    my_list = []
+    for each in warehouses.keys():
+        for item in drone_list:
+            #if item.isEmpty:
+            if (path_lenght(item, each) + path_lenght(each, order)) < best:
+                my_list.append([each, item])
+
+    return my_list[-1]
+
+print(greedy_algorithm([354, 125]))
+
+
