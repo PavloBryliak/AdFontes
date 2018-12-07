@@ -1,11 +1,13 @@
 from data.ParsedData import Data
 from data.Warehouses import Warehouses
+from math import sqrt
 
 class Drone:
     def __init__(self):
         self.capacity = 0
-        self.state = [0,0]
+        self.A = [0,0]
         self.cargoList = []
+        self.turns = 0
 
     def upload(self, items, warehouse):
         W = self.capacity
@@ -40,6 +42,22 @@ class Drone:
         for i in results:
             Warehouses.warehouses[warehouse][i] -= 1
         print(results)
+        return results
+
+
+    def deliver(self,items, order_coordinates):
+        while items:
+            items_on_drone = self.upload(items, 0)
+            for i in items_on_drone:
+                items.delete(i)
+                self.turns += 1
+            self.turns += abs(self.path_lenght(order_coordinates)*2)
+            #self.A = order_coordinates
+
+
+    def path_lenght(self, B):
+        return sqrt((self.A[0] - B[0])**2 + (self.A[1] - B[1])**2)
+
 
 
 if __name__ == "__main__":
