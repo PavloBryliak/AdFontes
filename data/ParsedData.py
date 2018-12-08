@@ -1,3 +1,6 @@
+from cmath import sqrt
+
+
 class Data:
     warehouses = dict ()
     weight = list ()
@@ -35,4 +38,5 @@ class Data:
                 products = list (map (int, line.split ()))
                 Data.orders[cord] = products
 
-
+def path_lenght(self, B):
+    return sqrt((self.A[0] - B[0])**2 + (self.A[1] - B[1])**2)

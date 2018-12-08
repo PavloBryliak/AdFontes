@@ -1,10 +1,11 @@
 from data.ParsedData import Data
 from data.Warehouses import Warehouses
-from math import sqrt
 
 class Drone:
+    capacity = 200
+
     def __init__(self):
-        self.capacity = 0
+        self.capacity = 200
         self.A = [0,0]
         self.cargoList = []
         self.turns = 0
@@ -55,8 +56,7 @@ class Drone:
             #self.A = order_coordinates
 
 
-    def path_lenght(self, B):
-        return sqrt((self.A[0] - B[0])**2 + (self.A[1] - B[1])**2)
+
 
 
 
