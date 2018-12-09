@@ -1,4 +1,4 @@
-from data.ParsedData import Data
+from data.dataParser import Data
 
 class Warehouses:
     warehouses = Data.warehouses

@@ -1,66 +1,50 @@
-from data.ParsedData import Data
+from math import sqrt
+
+from data.dataParser import Data
 from data.Warehouses import Warehouses
+
+def length(a, b):
+    return sqrt((a[1] - b[1]) ** 2 + (a[0] - b[0]) ** 2)
 
 class Drone:
     capacity = 200
-
+    id = 0
     def __init__(self):
-        self.capacity = 200
-        self.A = [0,0]
+        self.location = [0,0]
+        self.busy = False
         self.cargoList = []
         self.turns = 0
-
-    def upload(self, items, warehouse):
-        W = self.capacity
-        n = len(items)
-        s = Data.weight
+        self.score = 0
+        self.id = Drone.id
+        Drone.id += 1
 
 
-        m = [[0 for i in range(W)] for j in range(n)]
-        for i in range(1, n):
-            for j in range(0, W):
-                if s[items[i]-1] > j:
-                    m[i][j] = m[i - 1][j]
-                else:
-                    m[i][j] = max (m[i - 1][j], m[i - 1][j - s[items[i]-1]] + s[items[i]-1])
-        # [print(i) for i in m]
+    def upload(self,items, ware_coordinates):
+        # self.setBusy()
+        print("drone ",self.id," travels  to ", ware_coordinates, " and uploads item/s", items)
+        for i in items:
+            self.score += 1
+        self.score += length(self.location, ware_coordinates)
+        self.location = ware_coordinates
+        self.turns += self.score
 
-        results = []
-        final = m[n-1][W-1]
-        res = m[n-1][W-1]
-        w = W-1
-        for i in range (n - 1, 0, -1):
-            if res <= 0:
-                break
-            if res == m[i - 1][w]:
-                continue
-            else:
-                results.append (items[i])
-                res = res - items[i]
-                w = w - items[i]
-        self.cargoList = results
-        self.capacity = final
-        for i in results:
-            Warehouses.warehouses[warehouse][i] -= 1
-        print(results)
-        return results
+    def deliver(self, items, order_coordinates):
+        print("drone ",self.id," travels  to order", order_coordinates, " and delivers item/s", items)
+        for i in items:
+            self.score += 1
+        self.score += length (self.location, order_coordinates)
+        self.location = order_coordinates
+        self.turns += self.score
 
 
-    def deliver(self,items, order_coordinates):
-        while items:
-            items_on_drone = self.upload(items, 0)
-            for i in items_on_drone:
-                items.delete(i)
-                self.turns += 1
-            self.turns += abs(self.path_lenght(order_coordinates)*2)
-            #self.A = order_coordinates
+
+    def setBusy(self):
+        self.busy = True
+    def setFree(self):
+        self.busy = False
 
 
 
 
 
 
-if __name__ == "__main__":
-    b = Data()
-    a = Drone()
-    a.upload([226,183,6,220,299,280,12,42])

@@ -12,7 +12,7 @@ class Data:
         self.setOrders()
         self.setWeight()
     def setWarehouses(self):
-        with open ('warehouse.txt') as fp:
+        with open ('dataToParse/warehouse.txt') as fp:
             # number_of_warehouses =
             line = fp.readline ()
             for i in range (int (line)):
@@ -23,12 +23,12 @@ class Data:
                 Data.warehouses[cord] = quantity
 
     def setWeight(self):
-        with open ('weight.txt') as file:
+        with open ('dataToParse/weight.txt') as file:
             file_contents = file.read ()
             Data.weight = list (map (int, file_contents.split ()))
 
     def setOrders(self):
-        with open ('orders.txt') as fp:
+        with open ('dataToParse/orders.txt') as fp:
             line = fp.readline ()
             for i in range (int (line)):
                 line = fp.readline ()

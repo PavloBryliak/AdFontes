@@ -1,21 +1,31 @@
-from collections import OrderedDict
-from data.Drone import *
+from data.Drone import Drone
 from data.Warehouses import *
-from data.ParsedData import *
+from data.dataParser import *
 from math import sqrt
 
 
-def length(a, b):
-    return sqrt((a[1] - b[1]) ** 2 + (a[0] - b[0]) ** 2)
+
+#this function splits order to packs by following criteria:
+#algo finds closest warehouses, closest to the order, with parts of the order
 
 def splitToPacks(order):
     order = Data.orders[order]
     splited_order = dict()
+
+    check_list = []
+
+
     for shelter in Warehouses.warehouses:
         for item in order:
             if Warehouses.warehouses[shelter][item] > 0:
+                Warehouses.warehouses[shelter][item] -= 1
+                check_list.append(item)
                 if shelter not in splited_order: splited_order[shelter] = [item]
                 else: splited_order[shelter].append(item)
+
+    for item in order:
+        if item not in check_list: return None
+
     sorted_shelters = sorted(splited_order, key=lambda x: length(x, shelter))
     pre_packs = dict()
     pack = 0
@@ -35,8 +45,5 @@ def splitToPacks(order):
             final_packs.append ((shelter, pre_packs[shelter]))
     return final_packs
 
-
-if __name__=='__main__':
-    a = Data()
-
-    splitToPacks((340, 371))
+def length(a, b):
+    return sqrt((a[1] - b[1]) ** 2 + (a[0] - b[0]) ** 2)
