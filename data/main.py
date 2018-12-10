@@ -5,10 +5,15 @@ from data.dataParser import Data
 from data.makePacks import *
 from data.scoreCalculator import *
 
-drone_list = [Drone() for i in range (30)]
+drone_list = [Drone() for i in range (20)]
 global_turn = 0
-all_turns = 112993
+
+#145416 for 3 and 30 drones
+#112993 for 2 and 30 drones
+#144612 for 1 and 20 drones
+all_turns = 144612
 global_score = 0
+
 
 #we use here greedy algorithm, which choose the closest drone
 #to the given shelter
@@ -37,10 +42,9 @@ if __name__=='__main__':
     for order in Data.orders.keys():
 
         packs = splitToPacks (order)
-        if packs == None: continue
 
         while True:
-            if global_turn >= all_turns: break
+            # if global_turn >= all_turns: break
             free_drones = []
             for drone in drone_list:
                 if drone.turns < global_turn:
@@ -52,7 +56,7 @@ if __name__=='__main__':
             else: break
         order_counter+=1
 
-        if global_turn >= all_turns: break
+
 
         commands = greedy_algorithm(packs, order)
         for pack in commands:
@@ -61,5 +65,6 @@ if __name__=='__main__':
         global_score += calculateScore([i[0] for i in commands], all_turns)
         global_turn += 1
     print("the global score is ", round(global_score, 0), " points")
+
 
 

@@ -12,7 +12,7 @@ class Data:
         self.setOrders()
         self.setWeight()
     def setWarehouses(self):
-        with open ('dataToParse/warehouse.txt') as fp:
+        with open ('dataToParse/motherOfAll_1.txt') as fp:
             # number_of_warehouses =
             line = fp.readline ()
             for i in range (int (line)):

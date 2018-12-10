@@ -6,13 +6,13 @@ from data.Warehouses import Warehouses
 def length(a, b):
     return sqrt((a[1] - b[1]) ** 2 + (a[0] - b[0]) ** 2)
 
+
 class Drone:
     capacity = 200
     id = 0
     def __init__(self):
         self.location = [0,0]
         self.busy = False
-        self.cargoList = []
         self.turns = 0
         self.score = 0
         self.id = Drone.id
@@ -20,7 +20,6 @@ class Drone:
 
 
     def upload(self,items, ware_coordinates):
-        # self.setBusy()
         print("drone ",self.id," travels  to ", ware_coordinates, " and uploads item/s", items)
         for i in items:
             self.score += 1

@@ -18,13 +18,15 @@ def splitToPacks(order):
     for shelter in Warehouses.warehouses:
         for item in order:
             if Warehouses.warehouses[shelter][item] > 0:
-                Warehouses.warehouses[shelter][item] -= 1
                 check_list.append(item)
                 if shelter not in splited_order: splited_order[shelter] = [item]
                 else: splited_order[shelter].append(item)
 
+
     for item in order:
-        if item not in check_list: return None
+        if item not in check_list:
+            print(item, " item to delete")
+            order.remove(item)
 
     sorted_shelters = sorted(splited_order, key=lambda x: length(x, shelter))
     pre_packs = dict()
@@ -43,6 +45,9 @@ def splitToPacks(order):
             final_packs.append ((shelter, pre_packs[shelter][:len (pre_packs[shelter]) // 2]))
         else:
             final_packs.append ((shelter, pre_packs[shelter]))
+
+    for suborder in final_packs:
+        for item in suborder[1]:  Warehouses.warehouses[suborder[0]][item] -= 1
     return final_packs
 
 def length(a, b):
