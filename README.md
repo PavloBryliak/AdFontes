@@ -1,11 +1,11 @@
 # AdFontes
 
-Google Hashcode qualification round 2016 by Pavlo Bryliak and Oleksandr Potapov
-Our task was to make a drone delivery system.
+Google Hashcode qualification round 2016 by Pavlo Bryliak and Oleksandr Potapov.
+ Our task was to make a drone delivery system.
 
 ### Running code
-The algorithm basically works with 1st map - MotherOfAll
-To run the algorithm you have to run 
+The algorithm basically works with 1st map - MotherOfAll.
+ To run the algorithm you have to run 
 ```
 main.py
 ```
